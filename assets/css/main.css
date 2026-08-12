@@ -11,3 +11,8 @@
 @import './apps/note/NoteIndex.css';
 @import './apps/mail/MailIndex.css';
 @import './apps/mail/MailList.css';
+
+@import './apps/missbooks/BookDetails.css';
+@import './apps/missbooks/BookFilter.css';
+@import './apps/missbooks/BookIndex.css';
+@import './apps/missbooks/BookList.css';
