@@ -6,9 +6,10 @@ _createMails()
 
 export const mailService = {
     query,
-	get,
-	remove,
-	save,
+    get,
+    remove,
+    save,
+    getDefaultFilter,
 }
 
 function query(filterBy = {}) {
@@ -18,6 +19,22 @@ function query(filterBy = {}) {
                 const regex = new RegExp(filterBy.txt, 'i')
                 console.log('regex', regex)
                 mails = mails.filter(mail => regex.test(mail.subject))
+            }
+
+            if (filterBy.status === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedinUser.email && !mail.removedAt)
+            }
+
+            if (filterBy.status === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedinUser.email && mail.sentAt && !mail.removedAt)
+            }
+
+            if (filterBy.status === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
+
+            if (filterBy.status === 'draft') {
+                mails = mails.filter(mail => !mail.sentAt)
             }
 
             return mails
@@ -76,7 +93,7 @@ function _createMails() {
                 from: 'momo@momo.com',
                 to: 'user@appsus.com'
             },
-{
+            {
                 id: 'e102',
                 createdAt: 2051133930500,
                 subject: 'New Shawarma in town'
@@ -89,7 +106,55 @@ function _createMails() {
                 from: 'bobo@bobo.com',
                 to: 'user@appsus.com'
             },
+            {
+                id: 'e103',
+                createdAt: 2551133930500,
+                subject: 'The Shawarma was great'
+                ,
+                body: 'great reccomendation'
+                ,
+                isRead: true,
+                sentAt: 2551133930594,
+                removedAt: null,
+                from: 'user@appsus.com',
+                to: 'bobo@bobo.com'
+            },
+            {
+                id: 'e104',
+                createdAt: 3051133930500,
+                subject: 'I do not like Shawarma'
+                ,
+                body: 'i know i will be in trash folder cause i do not like Shawarma'
+                ,
+                isRead: true,
+                sentAt: 3051133930594,
+                removedAt: 3151133930594,
+                from: 'shlomi@shlomo.com',
+                to: 'user@appsus.com'
+            },
+            {
+                id: 'e105',
+                createdAt: 3551133930500,
+                subject: 'Think again about liking Shawarma'
+                ,
+                body: 'it is tasty and good for you'
+                ,
+                isRead: true,
+                sentAt: null,
+                removedAt: null,
+                from: 'user@appsus.com',
+                to: 'shlomi@shlomo.com'
+            },
         ]
-        		utilService.saveToStorage(MAILS_KEY, mails)
+        utilService.saveToStorage(MAILS_KEY, mails)
     }
+}
+
+function getDefaultFilter() {
+    return { txt: '', subject: '', status: 'inbox' }
+}
+
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
 }

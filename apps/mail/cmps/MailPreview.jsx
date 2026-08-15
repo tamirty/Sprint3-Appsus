@@ -1,9 +1,9 @@
 export function MailPreview({ mail }) {
     return (
-        <article>
-            <h2>Subject: {mail.subject}</h2>
-            <h3>From: {mail.from}</h3>
-            <p>{mail.body}</p>
+        <article className="mail-preview">
+            <h3>{mail.from}</h3>
+            <p>{mail.subject}</p>
+            <p>{new Date (mail.sentAt).toLocaleDateString('en-GB', {month:'short',day:'numeric'})}</p>
         </article>
     )
 }
