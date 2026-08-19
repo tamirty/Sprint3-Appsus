@@ -1,8 +1,8 @@
-export function MailPreview({ mail }) {
+export function MailPreview({ mail, filterBy }) {
     return (
         <article className="mail-preview">
-            <h3>{mail.from}</h3>
-            <p>{mail.subject}</p>
+            <span className={mail.isRead ? "" : "unread"}>{mail.fullname}</span>
+            <p className={mail.isRead ? "" : "unread"}>{mail.subject} - <span className="span-body">{mail.body}</span></p>
             <p>{new Date (mail.sentAt).toLocaleDateString('en-GB', {month:'short',day:'numeric'})}</p>
         </article>
     )

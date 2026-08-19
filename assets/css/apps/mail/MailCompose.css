@@ -1,0 +1,71 @@
+.mail-form {
+    position: fixed;
+    right: 30px;
+    bottom: 5px;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 500px;
+    min-height: 400px;
+
+    background-color: white;
+    border: 1px solid #ccc;
+
+    z-index: 10;
+
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 10px;
+    background-color: #f2f6fc;
+    font-weight: bold;
+}
+
+.form-field {
+    display: flex;
+    align-items: center;
+}
+
+.form-field input {
+    flex-grow: 1;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    outline: none;
+
+    padding: 12px 8px;
+}
+
+.mail-form textarea {
+    border: none;
+    outline: none;
+    resize: none;
+    flex-grow: 1;
+}
+
+.send-btn {
+    margin-top: auto;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    align-self: flex-start;
+
+    background-color: #0b57d0;
+    color: white;
+
+    border: none;
+    border-radius: 20px;
+
+    padding: 10px 24px;
+    cursor: pointer;
+}
+
+.close-btn {
+    color: black;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}

@@ -1,9 +1,16 @@
 .mail-preview {
     display: grid;
-    grid-template-columns: 1fr 2fr auto;
+    grid-template-columns: 1fr 1fr auto;
     align-items: center;
     padding-left: 20px;
     padding-right: 20px;
     border: 1px solid whitesmoke;
+}
 
+.unread {
+    font-weight: bold;
+}
+
+.span-body {
+    color: grey;
 }

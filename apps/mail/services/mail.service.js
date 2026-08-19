@@ -10,6 +10,12 @@ export const mailService = {
     remove,
     save,
     getDefaultFilter,
+    getEmptyMail,
+}
+
+const loggedinUser = {
+    email: 'user@appsus.com',
+    fullname: 'Mahatma Appsus'
 }
 
 function query(filterBy = {}) {
@@ -35,6 +41,14 @@ function query(filterBy = {}) {
 
             if (filterBy.status === 'draft') {
                 mails = mails.filter(mail => !mail.sentAt)
+            }
+
+            if (filterBy.readStatus === 'read') {
+                mails = mails.filter(mail => mail.isRead)
+            }
+
+            if (filterBy.readStatus === 'unread') {
+                mails = mails.filter(mail => !mail.isRead)
             }
 
             return mails
@@ -81,7 +95,7 @@ function _createMails() {
     if (!mails || !mails.length) {
         mails = [
             {
-                id: 'e101',
+                id: utilService.makeId(),
                 createdAt: 1551133930500,
                 subject: 'Miss you!'
                 ,
@@ -91,70 +105,64 @@ function _createMails() {
                 sentAt: 1551133930594,
                 removedAt: null,
                 from: 'momo@momo.com',
-                to: 'user@appsus.com'
+                to: 'user@appsus.com',
+                fullname: 'Momo Shlomo'
             },
-            {
-                id: 'e102',
-                createdAt: 2051133930500,
-                subject: 'New Shawarma in town'
-                ,
-                body: 'Must try our new lafa'
-                ,
-                isRead: true,
-                sentAt: 2051133930594,
-                removedAt: null,
-                from: 'bobo@bobo.com',
-                to: 'user@appsus.com'
-            },
-            {
-                id: 'e103',
-                createdAt: 2551133930500,
-                subject: 'The Shawarma was great'
-                ,
-                body: 'great reccomendation'
-                ,
-                isRead: true,
-                sentAt: 2551133930594,
-                removedAt: null,
-                from: 'user@appsus.com',
-                to: 'bobo@bobo.com'
-            },
-            {
-                id: 'e104',
-                createdAt: 3051133930500,
-                subject: 'I do not like Shawarma'
-                ,
-                body: 'i know i will be in trash folder cause i do not like Shawarma'
-                ,
-                isRead: true,
-                sentAt: 3051133930594,
-                removedAt: 3151133930594,
-                from: 'shlomi@shlomo.com',
-                to: 'user@appsus.com'
-            },
-            {
-                id: 'e105',
-                createdAt: 3551133930500,
-                subject: 'Think again about liking Shawarma'
-                ,
-                body: 'it is tasty and good for you'
-                ,
-                isRead: true,
-                sentAt: null,
-                removedAt: null,
-                from: 'user@appsus.com',
-                to: 'shlomi@shlomo.com'
-            },
+            _createMail(1551133930500, 'Project meeting', 'The project meeting has been moved to Monday at 10:00 AM.', false, 1551133930594, null, 'daniel@company.com', 'user@appsus.com', 'Daniel Cohen'),
+            _createMail(1651133930500, 'Invoice for August', 'Please review the attached invoice for August. Payment is due by the end of the month.', true, 1651133930594, null, 'rachel@finance.com', 'user@appsus.com', 'Rachel Green'),
+            _createMail(1751133930500, 'Appointment confirmation', 'Your appointment has been confirmed for Thursday at 14:30.', false, 1751133930594, null, 'sarah@clinic.com', 'user@appsus.com', 'Sarah Levi'),
+            _createMail(1781133930500, 'Security alert', 'A new login to your account was detected. Please review your recent account activity.', false, 1781133930594, null, 'security@service.com', 'user@appsus.com', 'Security Team'),
+            _createMail(1782133930500, 'Updated work schedule', 'The updated work schedule for next week is now available.', true, 1782133930594, null, 'michael@company.com', 'user@appsus.com', 'Michael Rosen'),
+            _createMail(1783133930500, 'Application received', 'We have received your application and will contact you after it has been reviewed.', true, 1783133930594, null, 'emma@recruitment.com', 'user@appsus.com', 'Emma Wilson'),
+            _createMail(1784133930500, 'Document approval required', 'Please review and approve the updated document before Friday afternoon.', false, 1784133930594, null, 'jonathan@company.com', 'user@appsus.com', 'Jonathan Miller'),
+            _createMail(1785133930500, 'Account verification', 'Please verify your email address to complete your account registration.', false, 1785133930594, null, 'accounts@service.com', 'user@appsus.com', 'Accounts Team'),
+            _createMail(1785233930500, 'Meeting follow-up', 'Thank you for today’s meeting. I have summarized the main action items we discussed.', true, 1785233930594, null, undefined, 'david@company.com', 'User Appsus'),
+            _createMail(1785333930500, 'Requested documents', 'I am sending the documents you requested during our previous conversation.', true, 1785333930594, null, undefined, 'office@company.com', 'User Appsus'),
+            _createMail(1785433930500, 'Project status update', 'The first stage of the project has been completed. We are now preparing for the next phase.', true, 1785433930594, null, undefined, 'team@company.com', 'User Appsus'),
+            _createMail(1785533930500, 'Meeting availability', 'I am available on Tuesday or Wednesday afternoon. Please let me know which time works for you.', false, 1785533930594, null, undefined, 'sarah@company.com', 'User Appsus'),
+            _createMail(1785633930500, 'Contract review', 'I reviewed the contract and added my comments. Please review the proposed changes.', true, 1785633930594, null, undefined, 'legal@company.com', 'User Appsus'),
+            _createMail(1785733930500, 'Draft proposal', 'I have prepared the initial proposal and will complete the remaining sections tomorrow.', false, null, null, undefined, 'client@business.com', 'User Appsus'),
+            _createMail(1785833930500, 'Budget discussion', 'I would like to discuss the proposed budget before submitting the final version.', false, null, null, undefined, 'finance@company.com', 'User Appsus'),
+            _createMail(1785933930500, 'Training registration', 'Your registration for the professional training course has been completed successfully.', true, 1785933930594, null, 'emily@academy.com', 'user@appsus.com', 'Emily Brooks'),
+            _createMail(1786033930500, 'System maintenance notice', 'The system will be temporarily unavailable on Sunday between 02:00 and 04:00.', false, 1786033930594, null, 'support@service.com', 'user@appsus.com', 'Technical Support'),
+            _createMail(1786133930500, 'Delivery confirmation', 'Your order has been shipped and is expected to arrive within three business days.', true, 1786133930594, null, 'james@shipping.com', 'user@appsus.com', 'James Parker'),
+            _createMail(1786233930500, 'Request for additional information', 'We need additional information before we can continue processing your request.', false, 1786233930594, 1786333930594, 'olivia@company.com', 'user@appsus.com', 'Olivia Martin'),
+            _createMail(1786333930500, 'Cancelled appointment', 'Your appointment scheduled for next week has been cancelled. Please contact us to arrange another date.', true, 1786333930594, 1786433930594, 'appointments@clinic.com', 'user@appsus.com', 'Dr. Sophia Brown')
+
         ]
-        utilService.saveToStorage(MAILS_KEY, mails)
+    }
+    utilService.saveToStorage(MAILS_KEY, mails)
+}
+
+function _createMail(createdAt, subject, body, isRead, sentAt, removedAt, from = 'user@appsus.com', to, fullname) {
+    return {
+        id: utilService.makeId(),
+        createdAt,
+        subject,
+        body,
+        isRead,
+        sentAt,
+        removedAt,
+        from,
+        to,
+        fullname,
+    }
+}
+
+function getEmptyMail() {
+    return {
+        createdAt: Date.now(),
+        subject: '',
+        body: '',
+        isRead: false,
+        sentAt: null,
+        removedAt: null,
+        from: 'user@appsus.com',
+        to: '',
     }
 }
 
 function getDefaultFilter() {
-    return { txt: '', subject: '', status: 'inbox' }
+    return { txt: '', subject: '', status: 'inbox', readStatus: 'all' }
 }
 
-const loggedinUser = {
-    email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
-}

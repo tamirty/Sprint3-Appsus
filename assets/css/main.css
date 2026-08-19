@@ -13,6 +13,7 @@
 @import './apps/mail/MailList.css';
 @import './apps/mail/MailPreview.css';
 @import './apps/mail/MailFolderList.css';
+@import './apps/mail/MailCompose.css';
 
 @import './apps/missbooks/BookDetails.css';
 @import './apps/missbooks/BookFilter.css';
