@@ -1,0 +1,14 @@
+.notePreview {
+    margin-top: auto;
+
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.noteActions button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+ }

@@ -1,5 +1,15 @@
+export function NoteTodos({ note }) {
 
-export function NoteTodos(){
-  
-  return <div  className="noteTodos">note Todos</div>
+    return (
+        <div className="noteTodos">
+            <h3>{note.info.title}</h3>
+
+            {note.info.todos.map(todo => (
+                <div  key={todo.txt}>
+                   
+                    {todo.txt}
+                </div>
+            ))}
+        </div>
+    )
 }
