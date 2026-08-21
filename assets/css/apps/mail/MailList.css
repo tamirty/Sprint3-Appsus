@@ -1,4 +1,15 @@
 .mail-list {
-    list-style : none;
-    width: 100%;  
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.mail-list li {
+    position: relative;
+}
+
+.mail-list li > a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }

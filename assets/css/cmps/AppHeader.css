@@ -1,8 +1,9 @@
 .app-header {
     display: flex;
     justify-content: space-between;
-    padding: 1em;
-    background: var(--bg1);
+    align-items: flex-start;
+    padding: 0.5em;
+    background: #FFF0C2;
 }
 
 nav a {
@@ -13,4 +14,9 @@ nav a.active {
     color: var(--color1);
     font-weight: bold;
     text-decoration: overline;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
 }

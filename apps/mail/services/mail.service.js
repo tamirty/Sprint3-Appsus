@@ -15,7 +15,7 @@ export const mailService = {
 
 const loggedinUser = {
     email: 'user@appsus.com',
-    fullname: 'Mahatma Appsus'
+    fullname: 'User Appsus'
 }
 
 function query(filterBy = {}) {
@@ -159,6 +159,7 @@ function getEmptyMail() {
         removedAt: null,
         from: 'user@appsus.com',
         to: '',
+        fullname:'User Appsus'
     }
 }
 

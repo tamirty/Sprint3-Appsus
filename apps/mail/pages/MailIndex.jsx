@@ -9,6 +9,7 @@ import { MailPreview } from "../cmps/MailPreview.jsx"
 import { MailFolderList } from "../cmps/MailFolderList.jsx"
 import { MailFilter } from "../cmps/MailFilter.jsx"
 import { MailCompose } from "../cmps/MailCompose.jsx"
+import { MailDeatails } from "./MailDetails.jsx"
 
 
 export function MailIndex() {
@@ -17,18 +18,26 @@ export function MailIndex() {
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isComposeOpen, setisComposeOpen] = useState(false)
     const { id: mailId } = useParams()
+    const { folder } = useParams()
 
     useEffect(() => {
         loadMails()
     }, [filterBy])
-
 
     function loadMails() {
         return mailService.query(filterBy)
             .then(mails => setMails(mails))
     }
 
+    useEffect(() => {
+        setFilterBy(prev => ({
+            ...prev, status: folder
+        }))
+    }, [folder])
+
     function onTrashMail(mailId) {
+        if (folder === 'trash') return onRemoveMail(mailId)
+
         const currMail = mails.find(mail => mail.id === mailId)
 
         const mailToTrash = {
@@ -41,6 +50,22 @@ export function MailIndex() {
             })
     }
 
+    function onReadMail(mailId) {
+        const currMail = mails.find(mail => mail.id === mailId)
+
+        const MailStatusRead = {
+            ...currMail,
+            isRead: true
+        }
+        mailService.save(MailStatusRead)
+            .then(() => {
+                setMails(prev => prev.map(mail => {
+                    if (mail.id === mailId) return MailStatusRead
+                    return mail
+                }))
+            })
+    }
+
     function onRemoveMail(mailId) {
         return mailService.remove(mailId)
             .then(() => {
@@ -48,33 +73,41 @@ export function MailIndex() {
             })
     }
 
-    // console.log(mails);
-    return <section className="mail-index">
-        <button onClick={() => setisComposeOpen(true)}>Compose</button>
-        <MailFolderList
-            filterBy={filterBy}
-            setFilterBy={setFilterBy}
-        />
+    return (
+        <section className="mail-index">
 
-        <div className="inner-index">
-            <MailFilter
-                filterBy={filterBy}
-                setFilterBy={setFilterBy} />
+            <div className="side-bar">
+                <button onClick={() => setisComposeOpen(true)}>Compose</button>
+                <MailFolderList
+                    filterBy={filterBy}
+                    setFilterBy={setFilterBy} />
+            </div>
 
-            {!mailId && <MailList
-                mails={mails}
-                onRemoveMail={onRemoveMail}
-                filterBy={filterBy}
-                onTrashMail={onTrashMail} />
-            }
+            <div className="inner-index">
+                <MailFilter
+                    filterBy={filterBy}
+                    setFilterBy={setFilterBy} />
 
-            {isComposeOpen && <MailCompose
-                loadMails={loadMails}
-                onClose={() => setisComposeOpen(false)} />
-            }
-            <Outlet />
-        </div>
+                {!mailId && <MailList
+                    mails={mails}
+                    onRemoveMail={onRemoveMail}
+                    filterBy={filterBy}
+                    onTrashMail={onTrashMail}
+                    onReadMail={onReadMail} />
+                }
 
-    </section>
+                {mailId && <MailDeatails
+                    onTrashMail={onTrashMail} />
+                }
+
+                {isComposeOpen && <MailCompose
+                    loadMails={loadMails}
+                    onClose={() => setisComposeOpen(false)} />
+                }
+                <Outlet />
+            </div>
+
+        </section>
+    )
 }
 

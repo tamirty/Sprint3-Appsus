@@ -1,19 +1,24 @@
-const { useState, useEffect } = React
+const { Link, NavLink } = ReactRouterDOM
 
-export function MailFolderList({ filterBy, setFilterBy }) {
-    const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
-
-    useEffect(() =>
-        setFilterBy(filterByToEdit)
-        , [filterByToEdit]
-    )
+export function MailFolderList() {
 
     return (
         <div className="mail-folders">
-            <button onClick={() => setFilterByToEdit(prev => ({ ...prev, status: 'inbox' }))}>inbox</button>
-            <button onClick={() => setFilterByToEdit(prev => ({ ...prev, status: 'sent' }))}>sent</button>
-            <button onClick={() => setFilterByToEdit(prev => ({ ...prev, status: 'trash' }))}>trash</button>
-            <button onClick={() => setFilterByToEdit(prev => ({ ...prev, status: 'draft' }))}>draft</button>
+            <NavLink to="/mail/inbox">
+                <button>Inbox</button>
+            </NavLink>
+
+            <NavLink to="/mail/sent">
+                <button>Sent</button>
+            </NavLink>
+
+            <NavLink to="/mail/trash">
+                <button>Trash</button>
+            </NavLink>
+
+            <NavLink to="/mail/draft">
+                <button>Draft</button>
+            </NavLink>
         </div>
     )
 }

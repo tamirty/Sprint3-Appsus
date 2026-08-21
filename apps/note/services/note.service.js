@@ -1,4 +1,4 @@
-import { storageService} from '../../../services/async-storage.service'
+import { storageService} from '../../../services/async-storage.service.js'
 
 const NOTE_KEY = 'notesDB'
 // _createNote()

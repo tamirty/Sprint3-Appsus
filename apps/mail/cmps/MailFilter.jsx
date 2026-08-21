@@ -7,16 +7,6 @@ export function MailFilter({ filterBy, setFilterBy }) {
         setFilterBy(filterByToEdit)
     }, [filterByToEdit])
 
-    useEffect(() => {
-        setFilterByToEdit(prev => ({
-            ...prev,
-            status: filterBy.status
-        }))
-    }, [filterBy.status])
-
-    console.log(filterByToEdit);
-
-
     function handleChange({ target }) {
         const { type, value, name: key } = target
         setFilterByToEdit(prev => ({ ...prev, [key]: type === 'number' ? +value : value }))
