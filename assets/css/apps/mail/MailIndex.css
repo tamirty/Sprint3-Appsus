@@ -16,6 +16,10 @@
     gap: 15px;
 }
 
+.compose-btn-icon {
+    display: none;
+}
+
 .side-bar>button {
     padding: 15px 25px;
     border: none;
@@ -36,4 +40,47 @@
     border-radius: 16px;
 
     overflow: hidden;
+}
+
+@media (max-width: 700px) {
+
+    .mail-index {
+        display: block;
+        min-height: 100vh;
+        background-color: white;
+    }
+
+    .side-bar>button {
+        position: absolute;
+        bottom: 80px;
+        right: 10px;
+        border-radius: 50%;
+    }
+
+    .inner-index {
+        width: 100%;
+        margin: 0;
+
+        padding-bottom: 60px;
+
+        border-radius: 0;
+    }
+
+    .compose-btn-icon {
+        display: block;
+    }
+
+    .compose-btn-text {
+        display: none;
+    }
+
+    .side-bar>button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 56px;
+        height: 56px;
+        padding: 0;
+        font-size: 20px;
+    }
 }

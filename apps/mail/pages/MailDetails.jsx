@@ -3,6 +3,7 @@ import { Loader } from "../../../cmps/Loader.jsx"
 
 const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouter
+const { Link } = ReactRouterDOM
 
 export function MailDeatails({ onTrashMail }) {
 
@@ -28,6 +29,8 @@ export function MailDeatails({ onTrashMail }) {
         <div className="mail-details-btns">
             <button onClick={() => navigate(`/mail/${folder}`)}><i className="fa-solid fa-arrow-left"></i></button>
             <button onClick={() => onTrash(mail.id)}><i className="fa-regular fa-trash-can"></i></button>
+            <Link to={`/mail/${folder}/${mail.prevMailId}`}><button>Previous Mail</button></Link>
+            <Link to={`/mail/${folder}/${mail.nextMailId}`}><button>Next Mail</button></Link>
         </div>
 
         <h2>{mail.subject}</h2>

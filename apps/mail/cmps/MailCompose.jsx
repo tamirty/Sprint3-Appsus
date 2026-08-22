@@ -2,8 +2,8 @@ import { mailService } from "../services/mail.service.js"
 
 const { useState } = React
 
-export function MailCompose({ loadMails, onClose }) {
-    const [mail, setMail] = useState(mailService.getEmptyMail())
+export function MailCompose({ loadMails, onClose, mailToEdit }) {
+    const [mail, setMail] = useState(mailToEdit || mailService.getEmptyMail())
 
     function handleChange({ target }) {
         const { type, value, name: key } = target
@@ -25,11 +25,27 @@ export function MailCompose({ loadMails, onClose }) {
                 onClose()
             })
     }
+    
+    function onDraftMail(ev) {
+        ev.preventDefault()
+
+        const mailToDraft = {
+            ...mail,
+            sentAt: null
+        }
+
+        mailService.save(mailToDraft)
+            .then(mail => {
+                console.log('draft with id', mail.id);
+                loadMails()
+                onClose()
+            })
+    }
 
     return <form onSubmit={onSendMail} className="mail-form">
         <div className="form-header">
             <h3>New Message</h3>
-            <button type="button" className="close-btn" onClick={onClose}>X</button>
+            <button type="button" className="close-btn" onClick={onDraftMail}>X</button>
         </div>
 
         <div className="form-field">

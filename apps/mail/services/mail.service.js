@@ -40,7 +40,7 @@ function query(filterBy = {}) {
             }
 
             if (filterBy.status === 'draft') {
-                mails = mails.filter(mail => !mail.sentAt)
+                mails = mails.filter(mail => !mail.sentAt && !mail.removedAt)
             }
 
             if (filterBy.readStatus === 'read') {

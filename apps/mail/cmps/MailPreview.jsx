@@ -1,6 +1,6 @@
 const { useParams } = ReactRouter
 
-export function MailPreview({ mail, filterBy }) {
+export function MailPreview({ mail}) {
     const {folder} = useParams()
     return (
         <article className="mail-preview">
