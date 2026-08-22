@@ -17,6 +17,14 @@
 @import './apps/mail/MailFilter.css';
 @import './apps/mail/MailDetails.css';
 
+@import './apps/note/NoteIndex.css';
+@import './apps/note/NoteList.css';
+@import './apps/note/NotePreview.css';
+@import './apps/note/NoteTodos.css';
+@import './apps/note/NoteTxt.css';
+@import './apps/note/NoteImg.css';
+@import './apps/note/NoteVideo.css';
+
 @import './apps/missbooks/BookDetails.css';
 @import './apps/missbooks/BookFilter.css';
 @import './apps/missbooks/BookIndex.css';

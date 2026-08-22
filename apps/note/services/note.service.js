@@ -8,11 +8,7 @@ export const noteService = {
   get,
   remove,
   save,
-  // getEmptyNote,
-  // getDefaultFilter,
-  // getSpeedStats,
-  // getVendorStats,
-  // getFilterFromSearchParams,
+
 }
 
 function query() {
@@ -84,21 +80,7 @@ const notes = [
 
   _createNote()
 
-// function query(filterBy = {}) {
-//     return storageService.query(NOTE_KEY)
-//         .then(notes => {
-//             if (filterBy.txt) {
-//                 const regExp = new RegExp(filterBy.txt, 'i')
-//                 notes = notes.filter(note => regExp.test(note.vendor))
-//             }
 
-//             if (filterBy.minSpeed) {
-//                 notes = notes.filter(note => note.maxSpeed >= filterBy.minSpeed)
-//             }
-
-//             return notes
-//         })
-// }
 
 function get(noteId) {
     return storageService.get(NOTE_KEY, noteId)
@@ -120,46 +102,7 @@ function save(note) {
     }
 }
 
-// function getEmptyNote(vendor = '', maxSpeed = '') {
-//     return { vendor, maxSpeed }
-// }
 
-// function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
-//     return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
-// }
-
-// function getFilterFromSearchParams(searchParams) {
-//     const defaultFilter = getDefaultFilter()
-//     const filterBy = {}
-
-//     for (const field in defaultFilter) {
-//         filterBy[field] = searchParams.get(field) || ''
-//     }
-//     return filterBy
-// }
-
-// function getSpeedStats() {
-//     return storageService.query(NOTE_KEY)
-//         .then(notes => {
-//             const noteCountBySpeedMap = _getNoteCountBySpeedMap(notes)
-//             const data = Object.keys(noteCountBySpeedMap).map(speedName => ({ title: speedName, value: noteCountBySpeedMap[speedName] }))
-//             return data
-//         })
-// }
-
-// function getVendorStats() {
-//     return storageService.query(NOTE_KEY)
-//         .then(notes => {
-//             const noteCountByVendorMap = _getNoteCountByVendorMap(notes)
-//             const data = Object.keys(noteCountByVendorMap)
-//                 .map(vendor =>
-//                 ({
-//                     title: vendor,
-//                     value: Math.round((noteCountByVendorMap[vendor] / notes.length) * 100)
-//                 }))
-//             return data
-//         })
-// }
 
 function _createNote() {
     let savedNotes = utilService.loadFromStorage(NOTE_KEY)
@@ -168,38 +111,3 @@ function _createNote() {
 
     utilService.saveToStorage(NOTE_KEY, notes)
 }
-// function _createNote(vendor, maxSpeed = 250) {
-//     const note = getEmptyNote(vendor, maxSpeed)
-//     note.id = utilService.makeId()
-//     return note
-// }
-
-// function _setNextPrevNoteId(note) {
-//     return storageService.query(NOTE_KEY).then((notes) => {
-//         const noteIdx = notes.findIndex((currNote) => currNote.id === note.id)
-//         const nextNote = notes[noteIdx + 1] ? notes[noteIdx + 1] : notes[0]
-//         const prevNote = notes[noteIdx - 1] ? notes[noteIdx - 1] : notes[notes.length - 1]
-//         note.nextNoteId = nextNote.id
-//         note.prevNoteId = prevNote.id
-//         return note
-//     })
-// }
-
-// function _getNoteCountBySpeedMap(notes) {
-//     const noteCountBySpeedMap = notes.reduce((map, notes) => {
-//         if (notes.maxSpeed < 120) map.slow++
-//         else if (notes.maxSpeed < 200) map.normal++
-//         else map.fast++
-//         return map
-//     }, { slow: 0, normal: 0, fast: 0 })
-//     return noteCountBySpeedMap
-// }
-
-// function _getNoteCountByVendorMap(notes) {
-//     const noteCountByVendorMap = notes.reduce((map, note) => {
-//         if (!map[note.vendor]) map[note.vendor] = 0
-//         map[note.vendor]++
-//         return map
-//     }, {})
-//     return noteCountByVendorMap
-// }

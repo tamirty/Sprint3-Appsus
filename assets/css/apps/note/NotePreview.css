@@ -1,14 +1,47 @@
+
+
 .notePreview {
-    margin-top: auto;
+    min-height: 180px;
+    padding: 18px;
+
+    border-radius: 12px;
+    box-sizing: border-box;
 
     display: flex;
-    gap: 8px;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+    transition: transform 0.2s;
+}
+
+.notePreview:hover {
+    transform: translateY(-3px);
+}
+
+.noteActions {
+    margin-top: auto;
+    padding-top: 15px;
+
+    display: flex;
     justify-content: flex-end;
+    gap: 6px;
 }
 
 .noteActions button {
     border: none;
     background: transparent;
+
+    padding: 6px;
     cursor: pointer;
+
     font-size: 18px;
- }
+    border-radius: 6px;
+}
+
+.noteActions button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
