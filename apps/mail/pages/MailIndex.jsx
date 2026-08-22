@@ -1,5 +1,4 @@
 const { useState, useEffect } = React
-const { Outlet } = ReactRouterDOM
 const { useParams } = ReactRouter
 
 
@@ -16,7 +15,8 @@ export function MailIndex() {
 
     const [mails, setMails] = useState([])
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
-    const [isComposeOpen, setisComposeOpen] = useState(false)
+    const [isComposeOpen, setIsComposeOpen] = useState(false)
+    const [mailToEdit, setMailToEdit] = useState(null)
     const { id: mailId } = useParams()
     const { folder } = useParams()
 
@@ -66,6 +66,11 @@ export function MailIndex() {
             })
     }
 
+    function onOpenDraft(mail) {
+        setMailToEdit(mail)
+        setIsComposeOpen(true)
+    }
+
     function onRemoveMail(mailId) {
         return mailService.remove(mailId)
             .then(() => {
@@ -77,7 +82,10 @@ export function MailIndex() {
         <section className="mail-index">
 
             <div className="side-bar">
-                <button onClick={() => setisComposeOpen(true)}>Compose</button>
+                <button onClick={() => setIsComposeOpen(true)}>
+                    <span className="compose-btn-text">Compose</span>
+                    <i className="fa-solid fa-pen compose-btn-icon"></i>
+                    </button>
                 <MailFolderList
                     filterBy={filterBy}
                     setFilterBy={setFilterBy} />
@@ -93,7 +101,8 @@ export function MailIndex() {
                     onRemoveMail={onRemoveMail}
                     filterBy={filterBy}
                     onTrashMail={onTrashMail}
-                    onReadMail={onReadMail} />
+                    onReadMail={onReadMail}
+                    onOpenDraft={onOpenDraft} />
                 }
 
                 {mailId && <MailDeatails
@@ -101,10 +110,13 @@ export function MailIndex() {
                 }
 
                 {isComposeOpen && <MailCompose
+                    mailToEdit={mailToEdit}
                     loadMails={loadMails}
-                    onClose={() => setisComposeOpen(false)} />
+                    onClose={() => {
+                        setIsComposeOpen(false)
+                        setMailToEdit(null)
+                    }} />
                 }
-                <Outlet />
             </div>
 
         </section>

@@ -18,3 +18,43 @@
     background-color: #d3e3fd;
     font-weight: bold;
 }
+
+@media (max-width: 700px) {
+ .mail-folders {
+        position: fixed;
+
+        bottom: 0;
+        left: 0;
+
+        z-index: 20;
+
+        display: flex;
+        flex-direction: row;
+
+        width: 100%;
+        height: 60px;
+
+        background-color: #f6f8fc;
+    }
+
+    .mail-folders a {
+        display: flex;
+        flex: 1;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .mail-folders button {
+        flex: 1;
+
+        border: none;
+        background-color: transparent;
+
+        text-align: center;
+    }
+
+    .mail-folders a.active button {
+        background-color: #d3e3fd;
+        font-weight: bold;
+    }
+}

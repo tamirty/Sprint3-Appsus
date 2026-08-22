@@ -8,8 +8,43 @@
     position: relative;
 }
 
-.mail-list li > a {
+.mail-list li>a {
     display: block;
     text-decoration: none;
     color: inherit;
+}
+
+.mail-list li {
+    position: relative;
+}
+
+.mail-list li button {
+    display: none;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    background-color: transparent;
+}
+
+.mail-list li:hover button {
+    display: block;
+}
+
+.mail-list li>button:hover {
+    background-color: #e8eaed;
+    border-radius: 50%;
+}
+
+.mail-list li:hover .mail-preview>p:last-child {
+    visibility: hidden;
+}
+
+.mail-list-draft {
+    cursor: pointer;
 }
