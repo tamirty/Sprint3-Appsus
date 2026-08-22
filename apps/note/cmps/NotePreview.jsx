@@ -2,7 +2,6 @@ import { NoteTxt } from './NoteTxt.jsx'
 import { NoteTodos } from './NoteTodos.jsx'
 import { NoteImg } from './NoteImg.jsx'
 import { NoteVideo } from './NoteVideo.jsx'
-import ''
 
 export function NotePreview({ note, onRemoveNote, onEditNote, onChangeColor, onTogglePin, onDuplicateNote }) {
     let noteCmp
@@ -20,41 +19,38 @@ export function NotePreview({ note, onRemoveNote, onEditNote, onChangeColor, onT
         noteCmp = <NoteVideo note={note} />
     }
 
-    return (
-        <article
-           
-            style={{ backgroundColor: note.style.backgroundColor }}
-        >
-            {noteCmp}
-           <div className="notePreview">
+return (
+ <article
+    className="notePreview"
+    style={{ backgroundColor: note.style.backgroundColor }}
+>
+        {noteCmp}
 
-    <button onClick={() => onTogglePin(note)}>
-        📌
-    </button>
+        <div className="noteActions">
 
-    <button onClick={() => onChangeColor(note)}>
-        🎨
-    </button>
+            <button onClick={() => onTogglePin(note)}>
+                📌
+            </button>
 
-    <button onClick={() => onEditNote(note)}>
-        ✏️
-    </button>
+            <button onClick={() => onChangeColor(note)}>
+                🎨
+            </button>
 
-    <button onClick={() => onDuplicateNote(note)}>
-        📄
-    </button>
+            <button onClick={() => onEditNote(note)}>
+                ✏️
+            </button>
 
-    <button onClick={() => onRemoveNote(note.id)}>
-        🗑️
-    </button>
+            <button onClick={() => onDuplicateNote(note)}>
+                📄
+            </button>
 
-</div>
+            <button onClick={() => onRemoveNote(note.id)}>
+                🗑️
+            </button>
 
-
-
-        </article>
-
-    )
+        </div>
+    </article>
+)
 }
 
 

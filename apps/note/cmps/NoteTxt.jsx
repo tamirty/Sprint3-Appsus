@@ -1,4 +1,6 @@
 
+
+
 export function NoteTxt({ note }) {
     return (
         <div className="noteTxt">

@@ -1,3 +1,5 @@
+
+
 export function NoteImg({ note }) {
     return (
         <div className="noteImg">

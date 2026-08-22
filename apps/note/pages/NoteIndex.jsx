@@ -24,59 +24,83 @@ export function NoteIndex() {
 
     function onAddNote() {
 
-    if (editingNoteId) {
-      
-        return
-    }
+        if (editingNoteId) {
 
-    const newNote = {
-        type: 'NoteTxt',
-        isPinned: false,
-        style: {
-            backgroundColor: '#fff'
-        },
-        info: {
-            txt: noteTxt
+            const noteToUpdate = notes.find(
+                note => note.id === editingNoteId
+            )
+
+            if (noteToUpdate.type === 'NoteTxt') {
+                noteToUpdate.info.txt = noteTxt
+            } else {
+                noteToUpdate.info.title = noteTxt
+            }
+
+            noteService.save(noteToUpdate)
+                .then(savedNote => {
+
+                    setNotes(prevNotes =>
+                        prevNotes.map(note =>
+                            note.id === savedNote.id
+                                ? savedNote
+                                : note
+                        )
+                    )
+
+                    setNoteTxt('')
+                    setEditingNoteId(null)
+                })
+
+            return
         }
+
+        const newNote = {
+            type: 'NoteTxt',
+            isPinned: false,
+            style: {
+                backgroundColor: '#fff'
+            },
+            info: {
+                txt: noteTxt
+            }
+        }
+
+        noteService.save(newNote)
+            .then(savedNote => {
+                setNotes(prevNotes => [...prevNotes, savedNote])
+                setNoteTxt('')
+            })
     }
+    const filteredNotes = notes.filter(note => {
+        const searchTxt = filterBy.toLowerCase()
 
-    noteService.save(newNote)
-        .then(savedNote => {
-            setNotes(prevNotes => [...prevNotes, savedNote])
-            setNoteTxt('')
-        })
-}
+        if (note.type === 'NoteTxt') {
+            const txt = note.info.txt || ''
+            return txt.toLowerCase().includes(searchTxt)
+        }
 
-const filteredNotes = notes.filter(note => {
-    const searchTxt = filterBy.toLowerCase()
+        if (note.type === 'NoteImg') {
+            const title = note.info.title || ''
+            return title.toLowerCase().includes(searchTxt)
+        }
 
-    if (note.type === 'NoteTxt') {
-        const txt = note.info.txt || ''
-        return txt.toLowerCase().includes(searchTxt)
-    }
+        if (note.type === 'NoteTodos') {
+            const isFound = note.info.todos.some(todo =>
+                todo.txt.toLowerCase().includes(searchTxt)
+            )
 
-    if (note.type === 'NoteImg') {
-        const title = note.info.title || ''
-        return title.toLowerCase().includes(searchTxt)
-    }
+            const title = note.info.title || ''
 
-    if (note.type === 'NoteTodos') {
-    const isFound = note.info.todos.some(todo =>
-        todo.txt.toLowerCase().includes(searchTxt)
-    )
+            return title.toLowerCase().includes(searchTxt) || isFound
+        }
+        if (note.type === 'NoteVideo') {
+            const title = note.info.title || ''
+            return title.toLowerCase().includes(searchTxt)
+        }
 
-    const title = note.info.title || ''
-
-    return title.toLowerCase().includes(searchTxt) || isFound
-     }
-    if (note.type === 'NoteVideo') {
-          const title = note.info.title || ''
-        return title.toLowerCase().includes(searchTxt)
-    }
-
-    return true
-})
-return (
+        return true
+    })
+    return (
         <section className="container">
 
             <input
@@ -122,7 +146,19 @@ return (
 
 
     function onEditNote(note) {
-        setNoteTxt(note.info.txt)
+
+        if (note.type === 'NoteTxt') {
+            setNoteTxt(note.info.txt)
+        }
+
+        else if (
+            note.type === 'NoteImg' ||
+            note.type === 'NoteVideo' ||
+            note.type === 'NoteTodos'
+        ) {
+            setNoteTxt(note.info.title)
+        }
+
         setEditingNoteId(note.id)
     }
 
@@ -181,4 +217,4 @@ return (
                 ])
             })
     }
-     }
+}

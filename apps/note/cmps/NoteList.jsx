@@ -1,5 +1,5 @@
 import { NotePreview } from './NotePreview.jsx'
-import './NoteList.css'
+
 
 export function NoteList({ notes, onRemoveNote, onEditNote ,onChangeColor ,onTogglePin,onDuplicateNote}) {
  const sortedNotes = [...notes].sort(
