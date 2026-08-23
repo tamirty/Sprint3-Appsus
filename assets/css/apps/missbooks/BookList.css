@@ -13,6 +13,7 @@
     text-align: center;
     border: 1px solid white;
     padding: 1em;
+    list-style: none;
 }
 
 .book-list h2 {
