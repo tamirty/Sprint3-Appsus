@@ -20,13 +20,13 @@
     color: #555;
 }
 
-.container-about {
+.about-apps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 }
 
-.container-about > div {
+.about-apps > div {
     padding: 30px 20px;
 
     border-radius: 15px;
@@ -37,20 +37,19 @@
     transition: transform 0.2s;
 }
 
-.container-about > div:hover {
+.about-apps > div:hover {
     transform: translateY(-8px);
 }
 
-.container-about h2 {
+.about-apps h2 {
     font-size: 24px;
     margin-bottom: 15px;
 }
 
-.container-about p {
+.about-apps p {
     color: #666;
     line-height: 1.5;
 }
-
 @media (max-width: 700px) {
 
     .about {
@@ -62,7 +61,7 @@
         font-size: 32px;
     }
 
-    .container-about{
+    .about-apps {
         grid-template-columns: 1fr;
     }
 }

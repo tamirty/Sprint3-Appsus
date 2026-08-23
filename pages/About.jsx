@@ -9,7 +9,7 @@ export function About() {
         all in one simple and convenient application.
     </p>
 
-    <div class="container-about">
+    <div class="about-apps">
         <div>
             <h2>📝 Notes</h2>
             <p>Capture your ideas and keep everything organized.</p>
