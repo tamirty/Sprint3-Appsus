@@ -19,6 +19,10 @@
     font-weight: bold;
 }
 
+.mail-folders button:hover {
+    background-color:#d3e3fd ;
+}
+
 @media (max-width: 700px) {
  .mail-folders {
         position: fixed;
