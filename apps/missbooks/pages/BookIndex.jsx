@@ -29,8 +29,6 @@ export function BookIndex() {
         setSelectedBook(book)
     }
 
-    console.log(books);
-
     return <section className="book-index">
         <BookFilter
             filterBy={filterBy}
